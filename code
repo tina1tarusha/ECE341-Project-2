@@ -1,0 +1,153 @@
+% given values
+
+    R1 = 1.0000
+    R2 = 1.0000
+    C1 = 0.1218 
+    C2 = 0.2940
+    L1 = 0.2940
+    L2 = 0.1218
+    
+% part a
+
+Hmag2 = Frequency_response1(1.0000, 1.0000, 0.1218, 0.2940, 0.2940, 0.1218,f = logspace(-1,1,100))
+
+plot(Hmag2);
+
+% part b
+
+[p1,p2,SF] = Poles(1.0000, 1.0000, 0.1218, 0.2940, 0.2940, 0.1218);
+
+% part c
+
+Hmag2 = Frequency_response_from_poles(-2.4047 + 5.8065i,-5.8055 + 2.4051i,779.85,logspace(-1,1,100));
+
+plot(Hmag2);
+
+% part d
+
+[p1, p2, SF] = Poles(R1, R2, C1, C2, L1, L2);
+p = 5/100;
+poles = [];
+for n = 1:1000
+    clc
+    r1 = R1;
+    r2 = R2;
+    c1 = C1*(1+p*(2*rand-1));
+    c2 = C2*(1+p*(2*rand-1));
+    l1 = L1*(1+p*(2*rand-1));
+    l2 = L2*(1+p*(2*rand-1));
+    [P1, P2, SF] = Poles(r1, r2, c1, c2, l1, l2);
+    poles = [poles; [P1, P2]];
+    
+end
+
+rP1 = real(poles(:,1));
+iP1 = imag(poles(:,1));
+rP2 = real(poles(:,2));
+iP2 = imag(poles(:,2));
+
+    % histogram of real(p1)
+
+    hist(iP1, 50)
+    miP1 = mean(iP1);
+    siP1 = std(iP1);
+    title('Part 2(d): Histogram of imag(P1)')
+    
+    % histogram of imag(p1)
+
+    hist(rP2, 50)
+    mrP2 = mean(rP2);
+    srP2 = std(rP2);
+    title('Part 2(d): Histogram of real(P2)')
+    
+    % histogram of real(p2)
+
+    hist(iP2, 50)
+    miP2 = mean(iP2);
+    siP2 = std(iP2);
+    title('Part 2(d): Histogram of imag(P2'))
+    
+    % histogram of imag(p2)
+
+    hist(iP2, 50)
+    miP2 = mean(iP2);
+    siP2 = std(iP2);
+    title('Part 2(d): Histogram of imag(P2)')
+    
+% part e
+
+P1 = poles(:,1);
+P2 = poles(:,2);
+
+plot(P1(1:200),'.')
+axis([real(p1)+[-0.6,0.6],imag(p1)+[-0.6,0.6]])
+axis square
+
+% part f
+
+plot(P2(1:200),'.')
+axis([real(p2)+[-0.6,0.6],imag(p2)+[-0.6,0.6]])
+axis square
+
+% part g
+
+Poles1 = P1(1:200);
+Poles2 = P2(1:200);
+plot([Poles1(:);Poles2(:)],'.')
+axis([-7,0,0,7])
+axis square
+
+% part h
+
+f = logspace(-1,1,1e2);
+[p1,p2,SF] = Poles(R1,R2,C1,C2,L1,L2);
+
+fc = 5/100;
+poles = [];
+for n = 1:1000
+    r1 = R1;
+    r2 = R2;
+    c1 = C1*(1+fc*(2*rand-1));
+    c2 = c2*(1+fc*(2*rand-1));
+    l1 = L1*(1+fc*(2*rand-1));
+    l2 = L2*(1+fc*(2*rand-1));
+    [P1,P2,SF] = Poles(r1,r2,c1,c2,l1,l2);
+    poles = [poles; [P1,P2]];
+    
+end
+
+rP1 = real(poles(:,1));
+iP1 = imag(poles(:,1));
+rP2 = real(poles(:,2));
+iP2 = imag(poles(:,2));
+
+mean_real_P1 = mean(rP1)
+sdev_real_P1 = std(rP1)
+
+mean_imag_P1 = mean(iP1)
+sdev_imag_P1 = std(iP1)
+
+mean_real_P2 = mean(rP2)
+sdev_real_P2 = std(rP2)
+
+mean_imag_P2 = mean(iP2)
+sdec_imag_P2 = std(iP2)
+
+% part i
+
+srP1 = mean_real_P1 + sdev_real_P1*randn(1,1000);
+siP1 = mean_imag_P1 + sdev_imag_P1*randn(1,1000);
+srP2 = mean_real_P2 + sdev_real_P2*randn(1,1000)
+siP2 = mean_imag_P2 + sdec_imag_P2*randn(1,1000);
+
+% part j
+
+plot(srP1,siP1,'.')
+
+% part k
+
+plot(srP2,siP2,'.')
+
+% part l
+
+plot(srPoles1,siPoles2,'.')
