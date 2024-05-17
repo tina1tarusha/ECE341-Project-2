@@ -2,7 +2,7 @@
 ECE 341 Effect of component variations on pole locations in H(s)
 
 ## Description ##
-Conducted a detailed simulation study of two electronic filter circuits to observe how random variations in component values affect their performance. 
+Ran a detailed simulation of two electronic filter circuits to observe how random variations in component values affect their performance. 
 
 ## Skills Demonstrated ##
 1. Proficiency in using simulation software for circuit analysis.
